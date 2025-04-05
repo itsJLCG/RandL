@@ -1,5 +1,11 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const admin = require('firebase-admin');
+
+admin.initializeApp({
+  credential: admin.credential.cert(require('../config/serviceAccountKey.json'))
+});
+
 
 // Generate JWT Token
 const generateToken = (id) => {
@@ -179,6 +185,67 @@ exports.getProfile = async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Server Error'
+    });
+  }
+};
+
+exports.googleLogin = async (req, res) => {
+  try {
+    const { token, name, email, image } = req.body;
+    
+    // Verify the Firebase ID token
+    const decodedToken = await admin.auth().verifyIdToken(token);
+    const uid = decodedToken.uid;
+    
+    // Check if user exists
+    let user = await User.findOne({ email });
+    
+    if (user) {
+      // User exists, update if needed
+      user = await User.findByIdAndUpdate(
+        user._id,
+        { 
+          name: name || user.name,
+          image: image || user.image
+        },
+        { new: true }
+      );
+    } else {
+      // Create new user
+      user = await User.create({
+        name,
+        email,
+        password: uid + process.env.JWT_SECRET, // Generate a random secure password
+        address: 'empty',  // You might want to ask for this later
+        image: {
+          public_id: image.public_id,
+          url: image.url
+        },
+        role: 'user'
+      });
+    }
+    
+    // Generate JWT token
+    const jwtToken = generateToken(user._id);
+    
+    res.status(200).json({
+      success: true,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        address: user.address || '',
+        image: user.image,
+        role: user.role,
+        token: jwtToken
+      }
+    });
+    
+  } catch (error) {
+    console.error('Google Login Error:', error);
+    res.status(401).json({
+      success: false,
+      error: 'Invalid token or authentication failed'
     });
   }
 };
