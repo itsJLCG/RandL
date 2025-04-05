@@ -45,7 +45,6 @@ const RootStack = () => {
 };
 
 const App = () => {
-
   useEffect(() => {
     const setupDatabase = async () => {
       try {
@@ -57,8 +56,8 @@ const App = () => {
     };
     
     setupDatabase();
-  }, []);
 
+  }, []);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>

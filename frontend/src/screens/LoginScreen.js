@@ -17,6 +17,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../actions/authActions';
+import GoogleSignInButton from '../components/GoogleSignInButton';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -64,6 +65,18 @@ const LoginScreen = ({ navigation }) => {
         console.error('Login error:', error);
         Alert.alert('Error', 'Failed to login. Please try again.');
       }
+    }
+  };
+
+  const handleGoogleSignInComplete = (result) => {
+    if (result.success) {
+      // Reset navigation stack and redirect based on role
+      navigation.reset({
+        index: 0,
+        routes: [{ 
+          name: result.isAdmin ? 'AdminApp' : 'MainApp' 
+        }]
+      });
     }
   };
 
@@ -155,6 +168,9 @@ const LoginScreen = ({ navigation }) => {
               )}
             </TouchableOpacity>
 
+            <View style={styles.socialButtonsContainer}>
+              <GoogleSignInButton onSignInComplete={handleGoogleSignInComplete} />
+            </View>
             <View style={styles.divider}>
               <View style={styles.dividerLine} />
               <Text style={styles.dividerText}>OR</Text>

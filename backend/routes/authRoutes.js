@@ -5,12 +5,14 @@ const {
   login, 
   signup, 
   getProfile, 
-  updateProfile 
+  updateProfile,
+  googleLogin 
 } = require('../controllers/authController');
 
 // Public routes
 router.post('/signup', signup);
 router.post('/login', login);
+router.post('/google-login', googleLogin);
 
 // Protected routes
 router.get('/profile', protect, getProfile); // Changed from /me to /profile
