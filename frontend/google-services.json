@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "1070419234838",
+    "project_id": "rlreactnative-6a1e3",
+    "storage_bucket": "rlreactnative-6a1e3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070419234838:android:3042ad41aae41575292537",
+        "android_client_info": {
+          "package_name": "com.galaxies.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070419234838-s92ldi7eko6m5naoc50vf1hel9ma994o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARlL21vH4nGRBzsCBiDzt70I1MK5HSUd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070419234838-s92ldi7eko6m5naoc50vf1hel9ma994o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1070419234838-fntc71qse87ef7oe4j5m2h4dnh91gdne.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.galaxies.firebase"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070419234838:android:175be145cd5f0a6f292537",
+        "android_client_info": {
+          "package_name": "com.rajesh33.frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070419234838-rvosd5umqs5t1bjfr8gtir6hak4u7cbb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rajesh33.frontend",
+            "certificate_hash": "ab0835552333a8ac5062b12c512101e2c280ed48"
+          }
+        },
+        {
+          "client_id": "1070419234838-vdgkic1i0m2l1e1b4ka0h1ieuk8o8e28.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rajesh33.frontend",
+            "certificate_hash": "7a25b473f1dd6b210490613f612c4786684a2106"
+          }
+        },
+        {
+          "client_id": "1070419234838-s92ldi7eko6m5naoc50vf1hel9ma994o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARlL21vH4nGRBzsCBiDzt70I1MK5HSUd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070419234838-s92ldi7eko6m5naoc50vf1hel9ma994o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1070419234838-fntc71qse87ef7oe4j5m2h4dnh91gdne.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.galaxies.firebase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
