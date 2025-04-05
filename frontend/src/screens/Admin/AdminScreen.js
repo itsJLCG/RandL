@@ -40,6 +40,12 @@ const AdminScreen = ({ navigation }) => {
       title: 'Manage Users',
       subtitle: 'View and manage user accounts',
       onPress: () => navigation.navigate('ManageUsers')
+    },
+    {
+      icon: 'pricetag',
+      title: 'Manage Promotions',
+      subtitle: 'Create and manage sales promotions',
+      onPress: () => navigation.navigate('ManagePromotions')
     }
   ];
 
