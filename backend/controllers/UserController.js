@@ -123,3 +123,41 @@ exports.getUser = async (req, res) => {
     });
   }
 };
+
+// Add this function to your UserController
+exports.updatePushToken = async (req, res) => {
+  try {
+    const { pushToken } = req.body;
+    
+    if (!pushToken) {
+      return res.status(400).json({
+        success: false,
+        error: 'Push token is required'
+      });
+    }
+    
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { pushToken },
+      { new: true }
+    );
+    
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found'
+      });
+    }
+    
+    res.status(200).json({
+      success: true,
+      message: 'Push token updated successfully'
+    });
+  } catch (error) {
+    console.error('Update Push Token Error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Server Error: ' + error.message
+    });
+  }
+};
