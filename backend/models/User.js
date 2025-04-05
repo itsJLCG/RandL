@@ -45,6 +45,10 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  pushToken: {
+    type: String,
+    default: null
+  },
   orders: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -54,7 +54,7 @@ const OrderCard = ({ order, onStatusChange }) => {
       <View style={styles.statusContainer}>
         <Text style={styles.statusLabel}>Status:</Text>
         <View style={[
-          styles.pickerContainer, 
+          styles.pickerContainer,
           { backgroundColor: statusColors[order.status] }
         ]}>
           <Picker
@@ -120,7 +120,10 @@ const ManageOrdersScreen = ({ navigation }) => {
     try {
       const result = await dispatch(updateOrderStatus(orderId, newStatus));
       if (result.success) {
-        Alert.alert('Success', 'Order status updated successfully');
+        Alert.alert(
+          'Status Updated',
+          `Order status has been updated to ${newStatus}. A notification has been sent to the customer.`
+        );
       } else {
         Alert.alert('Error', result.error || 'Failed to update order status');
       }

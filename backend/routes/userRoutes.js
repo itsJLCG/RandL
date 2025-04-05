@@ -4,12 +4,16 @@ const {
   getUsers,
   getUser,
   updateUserRole,
-  deleteUser
+  deleteUser,
+  updatePushToken
 } = require('../controllers/UserController');
 const { protect, authorize } = require('../middleware/auth');
 
 // Protect all routes & restrict to admin
 router.use(protect);
+
+router.put('/pushtoken', protect, updatePushToken);
+
 router.use(authorize('admin'));
 
 router

@@ -124,3 +124,35 @@ export const deleteUser = (userId) => async (dispatch, getState) => {
     return { success: false, message: error.message };
   }
 };
+
+export const updatePushToken = (token) => async (dispatch, getState) => {
+  try {
+    const { auth } = getState();
+    
+    if (!auth.token || !token) {
+      return { success: false };
+    }
+    
+    const response = await fetch(`${API_URL}/api/users/pushtoken`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${auth.token}`
+      },
+      body: JSON.stringify({ pushToken: token })
+    });
+    
+    const data = await response.json();
+    
+    if (!response.ok) {
+      console.error('Failed to update push token:', data.error);
+      return { success: false, error: data.error };
+    }
+    
+    return { success: true };
+  } catch (error) {
+    console.error('Update push token error:', error);
+    return { success: false, error: error.message };
+  }
+};

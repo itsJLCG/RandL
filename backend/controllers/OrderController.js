@@ -1,5 +1,6 @@
 const Order = require('../models/Order');
 const User = require('../models/User');
+const notificationService = require('../utils/notificationService');
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -192,14 +193,14 @@ exports.cancelOrder = async (req, res) => {
 exports.updateOrderStatus = async (req, res) => {
   try {
     const { status } = req.body;
-
+    
     if (!status) {
       return res.status(400).json({
         success: false,
-        error: 'Please provide a status'
+        error: 'Status is required'
       });
     }
-
+    
     const order = await Order.findById(req.params.id);
     
     if (!order) {
@@ -209,13 +210,18 @@ exports.updateOrderStatus = async (req, res) => {
       });
     }
     
+    // Update status fields based on the new status
     order.status = status;
+    
     if (status === 'Delivered') {
       order.isDelivered = true;
       order.deliveredAt = Date.now();
     }
     
     const updatedOrder = await order.save();
+    
+    // Send notification to the user about status change
+    await notificationService.sendOrderStatusNotification(order._id);
     
     res.status(200).json({
       success: true,
