@@ -1,3 +1,4 @@
+import 'expo-dev-client'; // Ensure this is at the top of your file
 import 'react-native-reanimated'; 
 import 'react-native-gesture-handler';
 import React from 'react';
