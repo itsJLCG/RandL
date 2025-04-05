@@ -13,6 +13,9 @@ import AddCategoryScreen from '../screens/Admin/AddCategoryScreen';
 import EditCategoryScreen from '../screens/Admin/EditCategoryScreen';
 import ManageUsersScreen from '../screens/Admin/ManageUserScreen';
 import ManageOrdersScreen from '../screens/Admin/ManageOrdersScreen';
+import ManagePromotionsScreen from '../screens/Admin/ManagePromotionsScreen';
+import AddPromotionScreen from '../screens/Admin/AddPromotionScreen';
+import EditPromotionScreen from '../screens/Admin/EditPromotionScreen';
 
 const AdminStack = createStackNavigator();
 
@@ -77,6 +80,21 @@ const AdminStackScreen = () => {
         name="ManageOrders" 
         component={ManageOrdersScreen}
         options={{ title: 'Manage Orders' }}
+      />
+      <AdminStack.Screen 
+        name="ManagePromotions" 
+        component={ManagePromotionsScreen}
+        options={{ title: 'Manage Promotions' }}
+      />
+      <AdminStack.Screen 
+        name="AddPromotion" 
+        component={AddPromotionScreen}
+        options={{ title: 'Add Promotion' }}
+      />
+      <AdminStack.Screen 
+        name="EditPromotion" 
+        component={EditPromotionScreen}
+        options={{ title: 'Edit Promotion' }}
       />
     </AdminStack.Navigator>
   );

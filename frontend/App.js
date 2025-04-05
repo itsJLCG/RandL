@@ -97,26 +97,38 @@ const AppContent = () => {
 
   // Function to handle notification interactions
   // Function to handle notification interactions
-const handleNotificationResponse = (response) => {
-  const data = response.notification.request.content.data;
-
-  if (data?.type === 'ORDER_STATUS_UPDATE' && data?.orderId) {
-    // Navigate to order details screen
-    if (navigationRef.current) {
-      // For customer app
-      if (navigationRef.current.isReady()) {
+   // Function to handle notification interactions
+   const handleNotificationResponse = (response) => {
+    const data = response.notification.request.content.data;
+  
+    if (data?.type === 'ORDER_STATUS_UPDATE' && data?.orderId) {
+      // Navigate to order details screen
+      if (navigationRef.current) {
+        // For customer app
+        if (navigationRef.current.isReady()) {
+          navigationRef.current.navigate('MainApp', {
+            screen: 'ProfileDrawer',
+            params: {
+              screen: 'OrderDetails',
+              params: { orderId: data.orderId }
+            }
+          });
+        }
+      }
+    } 
+    // Handle promotion notifications - no params needed
+    else if (data?.type === 'NEW_PROMOTION') {
+      if (navigationRef.current && navigationRef.current.isReady()) {
         navigationRef.current.navigate('MainApp', {
           screen: 'ProfileDrawer',
           params: {
-            screen: 'OrderDetails',
-            params: { orderId: data.orderId }
+            screen: 'ActivePromotions'
           }
         });
       }
     }
-  }
-};
-
+  };
+  
 return (
   <NavigationContainer
     ref={navigationRef}

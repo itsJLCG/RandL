@@ -6,6 +6,7 @@ import orderReducer from '../reducers/orderReducer';
 import categoryReducer from '../reducers/categoryReducer';
 import userReducer from '../reducers/userReducer';
 import { reviewReducer } from '../reducers/reviewReducer';
+import promotionReducer from '../reducers/promotionReducer';
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     categories: categoryReducer,
     users: userReducer,
     reviews: reviewReducer,
+    promotions: promotionReducer,
   },
 });
