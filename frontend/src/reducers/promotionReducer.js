@@ -15,6 +15,7 @@ import {
   
   const initialState = {
     promotions: [],
+    activePromotions: [],
     isLoading: false,
     error: null
   };
@@ -74,6 +75,13 @@ import {
           isLoading: false,
           error: action.payload
         };
+      case 'FETCH_ACTIVE_PROMOTIONS_SUCCESS':
+        return {
+         ...state,
+          isLoading: false,
+          activePromotions: action.payload,
+          error: null
+        };        
         
       default:
         return state;

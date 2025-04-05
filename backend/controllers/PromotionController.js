@@ -1,19 +1,25 @@
 const Promotion = require('../models/Promotion');
+const { sendPromotionNotification } = require('../utils/notificationService');
 
 // @desc    Create new promotion
 // @route   POST /api/promotions
 // @access  Private/Admin
 exports.createPromotion = async (req, res) => {
   try {
-    const { title, description, discountPercentage, products } = req.body;
+    const { title, description, discountPercentage, products, isActive } = req.body;
     
     const promotion = await Promotion.create({
       title,
       description,
       discountPercentage,
       products,
-      isActive: true
+      isActive: isActive !== undefined ? isActive : true
     });
+
+    // Send notification if the promotion is active
+    if (promotion.isActive) {
+      sendPromotionNotification(promotion);
+    }
 
     res.status(201).json({
       success: true,
@@ -27,6 +33,7 @@ exports.createPromotion = async (req, res) => {
     });
   }
 };
+
 
 // @desc    Get all promotions
 // @route   GET /api/promotions
@@ -93,11 +100,18 @@ exports.updatePromotion = async (req, res) => {
       });
     }
 
+    const wasActive = promotion.isActive;
+    
     promotion = await Promotion.findByIdAndUpdate(
       req.params.id, 
       req.body,
       { new: true, runValidators: true }
     );
+
+    // Send notification if promotion was not active before but is now
+    if (!wasActive && promotion.isActive) {
+      sendPromotionNotification(promotion);
+    }
 
     res.status(200).json({
       success: true,

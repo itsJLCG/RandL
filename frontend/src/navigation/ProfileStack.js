@@ -9,6 +9,7 @@ import OrderDetailsScreen from '../screens/OrderDetailsScreen';
 import CreateReviewScreen from '../screens/CreateReviewScreen';
 import ReviewsScreen from '../screens/ReviewsScreen';
 import EditReviewScreen from '../screens/EditReviewScreen';
+import ActivePromotionsScreen from '../screens/ActivePromotionsScreen';
 
 const Stack = createStackNavigator();
 
@@ -46,6 +47,7 @@ const ProfileStack = () => {
       <Stack.Screen name="MyOrders" component={MyOrdersScreen} />
       <Stack.Screen name="OrderDetails" component={OrderDetailsScreen} />
       <Stack.Screen name="ReviewScreen" component={ReviewsScreen} />
+      <Stack.Screen name="ActivePromotions" component={ActivePromotionsScreen} />
       <Stack.Screen
         name="CreateReview"
         component={CreateReviewScreen}

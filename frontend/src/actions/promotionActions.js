@@ -196,3 +196,33 @@ export const deletePromotion = (id) => async (dispatch, getState) => {
     return { success: false, message: error.message };
   }
 };
+
+// Fetch active promotions for customers
+export const fetchActivePromotions = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: FETCH_PROMOTIONS_REQUEST });
+
+    const response = await fetch(`${API_URL}/api/promotions/active`);
+
+    const data = await response.json();
+    console.log('Fetch active promotions response:', data);
+
+    if (!response.ok) {
+      throw new Error(data.error || `Server error: ${response.status}`);
+    }
+
+    dispatch({
+      type: 'FETCH_ACTIVE_PROMOTIONS_SUCCESS',
+      payload: data.promotions
+    });
+
+    return { success: true, promotions: data.promotions };
+  } catch (error) {
+    console.error('Fetch Active Promotions Error:', error);
+    dispatch({
+      type: FETCH_PROMOTIONS_FAILURE,
+      payload: error.message
+    });
+    return { success: false, message: error.message };
+  }
+};

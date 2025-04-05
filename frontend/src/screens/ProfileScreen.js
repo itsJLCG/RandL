@@ -130,6 +130,12 @@ const ProfileScreen = ({ navigation, route }) => {
       subtitle: 'Update your profile information',
       onPress: () => navigation.navigate('EditProfile', { user })
     },
+    {
+      icon: 'help-circle-outline',
+      title: 'Promotions & Offers',
+      subtitle: 'Check out the latest promotions',
+      onPress: () => navigation.navigate('ActivePromotions', { user })
+    }
   ];
 
   const handleLogout = () => {

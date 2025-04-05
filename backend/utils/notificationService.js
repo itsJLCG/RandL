@@ -50,6 +50,41 @@ exports.sendOrderStatusNotification = async (orderId) => {
   }
 };
 
+// Send notification when a promotion is created or updated to active
+exports.sendPromotionNotification = async (promotion) => {
+  try {
+    // Find all users who have push tokens
+    const users = await User.find({ pushToken: { $exists: true, $ne: null } });
+    
+    if (!users || users.length === 0) {
+      console.log('No users with push tokens found');
+      return false;
+    }
+
+    const title = 'New Promotion Available!';
+    const body = `${promotion.title}: ${promotion.discountPercentage}% discount - Check it out now!`;
+    
+    // Include promotion data to allow deep linking
+    const data = {
+      type: 'NEW_PROMOTION',
+      promotionId: promotion._id.toString()
+    };
+    
+    // Send notifications to all users with push tokens
+    const results = await Promise.all(
+      users.map(user => 
+        sendPushNotification(user.pushToken, title, body, data)
+      )
+    );
+    
+    console.log(`Sent promotion notifications to ${results.filter(Boolean).length} users`);
+    return true;
+  } catch (error) {
+    console.error('Send promotion notification error:', error);
+    return false;
+  }
+};
+
 // Helper function to send push notification via Expo's push service
 async function sendPushNotification(pushToken, title, body, data = {}) {
   const message = {
