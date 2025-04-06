@@ -118,7 +118,6 @@ const ManageCategoriesScreen = ({ navigation }) => {
                       data={tableData} 
                       widthArr={widthArr}
                       style={styles.row}
-                      textStyle={styles.text}
                     />
                   </Table>
                 </ScrollView>
