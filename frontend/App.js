@@ -119,12 +119,23 @@ const AppContent = () => {
     // Handle promotion notifications - no params needed
     else if (data?.type === 'NEW_PROMOTION') {
       if (navigationRef.current && navigationRef.current.isReady()) {
+        // First navigate to the Profile screen
         navigationRef.current.navigate('MainApp', {
           screen: 'ProfileDrawer',
           params: {
-            screen: 'ActivePromotions'
+            screen: 'Profile' // Navigate to Profile screen first
           }
         });
+        
+        // Then after a short delay, navigate to ActivePromotions
+        setTimeout(() => {
+          navigationRef.current.navigate('MainApp', {
+            screen: 'ProfileDrawer',
+            params: {
+              screen: 'ActivePromotions'
+            }
+          });
+        }, 1000); // 1 second delay before navigating to ActivePromotions
       }
     }
   };
