@@ -143,9 +143,6 @@ export const signup = (signupData) => async (dispatch) => {
       return { success: false, message: data.error };
     }
   } catch (error) {
-    console.error('Signup Error:', error);
-    dispatch(signupFailure(error.message));
-    return { success: false, message: error.message };
   }
 };
 

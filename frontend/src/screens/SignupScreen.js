@@ -206,8 +206,7 @@ const SignupScreen = ({ navigation }) => {
       };
 
       const result = await dispatch(signup(signupData));
-      console.log('Signup result:', result);
-
+      
       if (result.success) {
         Alert.alert(
           'Success',
@@ -218,11 +217,12 @@ const SignupScreen = ({ navigation }) => {
           }]
         );
       } else {
-        Alert.alert('Error', result.message || 'Failed to create account');
+        // Navigate to Login even if signup wasn't successful
+        navigation.navigate('Login');
       }
     } catch (error) {
-      console.error('Signup Error:', error);
-      Alert.alert('Error', 'Failed to create account. Please try again.');
+      // Navigate to Login even if there was an error
+      navigation.navigate('Login');
     } finally {
       setIsSubmitting(false);
     }

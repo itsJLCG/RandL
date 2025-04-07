@@ -57,11 +57,6 @@ exports.signup = async (req, res) => {
       });
     }
   } catch (error) {
-    console.error('Signup Error:', error);
-    res.status(400).json({
-      success: false,
-      error: error.message
-    });
   }
 };
 

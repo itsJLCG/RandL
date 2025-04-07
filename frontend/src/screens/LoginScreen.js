@@ -23,6 +23,8 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  // Add local loading state
+  const [localLoading, setLocalLoading] = useState(false);
 
   const dispatch = useDispatch();
   const { isLoading, isAuthenticated, error } = useSelector(state => state.auth);
@@ -48,6 +50,7 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = async () => {
     if (validateForm()) {
       try {
+        setLocalLoading(true);
         const result = await dispatch(login(email, password));
         
         if (result.success) {
@@ -64,6 +67,8 @@ const LoginScreen = ({ navigation }) => {
       } catch (error) {
         console.error('Login error:', error);
         Alert.alert('Error', 'Failed to login. Please try again.');
+      } finally {
+        setLocalLoading(false);
       }
     }
   };
@@ -157,16 +162,16 @@ const LoginScreen = ({ navigation }) => {
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={[styles.loginButton, isLoading && styles.loginButtonDisabled]}
-              onPress={handleLogin}
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <ActivityIndicator size="small" color="#fff" />
-              ) : (
-                <Text style={styles.loginButtonText}>Sign In</Text>
-              )}
-            </TouchableOpacity>
+      style={[styles.loginButton, localLoading && styles.loginButtonDisabled]}
+      onPress={handleLogin}
+      disabled={localLoading}
+    >
+      {localLoading ? (
+        <ActivityIndicator size="small" color="#fff" />
+      ) : (
+        <Text style={styles.loginButtonText}>Sign In</Text>
+      )}
+    </TouchableOpacity>
 
             <View style={styles.socialButtonsContainer}>
               <GoogleSignInButton onSignInComplete={handleGoogleSignInComplete} />
