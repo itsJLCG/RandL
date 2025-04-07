@@ -187,7 +187,7 @@ const CartScreen = ({ navigation }) => {
                 <View style={styles.itemDetails}>
                   <Text style={styles.itemTitle} numberOfLines={2}>{item.title}</Text>
                   <View style={styles.priceRow}>
-                    <Text style={styles.itemPrice}>${(item.price * item.quantity).toFixed(2)}</Text>
+                    <Text style={styles.itemPrice}>₱{(item.price * item.quantity).toFixed(2)}</Text>
                   </View>
                   
                   {/* Quantity Controls */}
@@ -229,15 +229,15 @@ const CartScreen = ({ navigation }) => {
           <View style={styles.totalContainer}>
             <View style={styles.totalRow}>
               <Text style={styles.totalLabel}>Subtotal</Text>
-              <Text style={styles.totalValue}>${calculateTotal()}</Text>
+              <Text style={styles.totalValue}>₱{calculateTotal()}</Text>
             </View>
             <View style={styles.totalRow}>
               <Text style={styles.totalLabel}>Shipping</Text>
-              <Text style={styles.totalValue}>$5.00</Text>
+              <Text style={styles.totalValue}>₱5.00</Text>
             </View>
             <View style={[styles.totalRow, styles.finalRow]}>
               <Text style={styles.finalTotalLabel}>Total</Text>
-              <Text style={styles.finalTotalValue}>${getSelectedItemCount() > 0 ? (parseFloat(calculateTotal()) + 5).toFixed(2) : '0.00'}</Text>
+              <Text style={styles.finalTotalValue}>₱{getSelectedItemCount() > 0 ? (parseFloat(calculateTotal()) + 5).toFixed(2) : '0.00'}</Text>
             </View>
             <TouchableOpacity 
               style={[styles.checkoutButton, getSelectedItemCount() === 0 && styles.disabledButton]}

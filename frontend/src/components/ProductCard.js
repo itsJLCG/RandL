@@ -28,6 +28,23 @@ const ProductCard = ({ product, onAddToCart }) => {
     return require('../assets/placeholder.png'); // Make sure this file exists
   };
 
+  // Get category name with fallback
+  const getCategoryName = () => {
+    if (!product) return 'Uncategorized';
+    
+    // Handle case when category is an object with a name property
+    if (product.category && product.category.name) {
+      return product.category.name;
+    }
+    
+    // Handle case when category is a direct string
+    if (typeof product.category === 'string') {
+      return product.category;
+    }
+    
+    return 'Uncategorized';
+  };
+
   return (
     <TouchableOpacity 
       style={styles.card} 
@@ -43,6 +60,7 @@ const ProductCard = ({ product, onAddToCart }) => {
       </View>
       <View style={styles.detailsContainer}>
         <Text numberOfLines={2} style={styles.title}>{product.name}</Text>
+        <Text style={styles.category}>{getCategoryName()}</Text>
         <View style={styles.priceRow}>
           <Text style={styles.price}>₱{parseFloat(product.price).toFixed(2)}</Text>
           <TouchableOpacity 
@@ -93,8 +111,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     color: '#1F2937',
-    marginBottom: 8,
-    height: 40,
+    marginBottom: 4,
+    height: 36,
+  },
+  category: {
+    fontSize: 12,
+    color: 'green',
+    marginBottom: 6,
   },
   priceRow: {
     flexDirection: 'row',

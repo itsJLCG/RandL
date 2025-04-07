@@ -50,7 +50,7 @@ useEffect(() => {
 
   // Calculate order totals
   const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-  const shipping = 5.99;
+  const shipping = 45;
   const tax = subtotal * 0.08; // 8% tax rate
   const total = subtotal + shipping + tax;
   
@@ -205,7 +205,7 @@ useEffect(() => {
               <View style={styles.itemDetails}>
                 <Text style={styles.itemName} numberOfLines={2}>{item.title}</Text>
                 <Text style={styles.itemQuantity}>Quantity: {item.quantity}</Text>
-                <Text style={styles.itemPrice}>${(item.price * item.quantity).toFixed(2)}</Text>
+                <Text style={styles.itemPrice}>₱{(item.price * item.quantity).toFixed(2)}</Text>
               </View>
             </View>
           ))}
@@ -216,19 +216,19 @@ useEffect(() => {
           <View style={styles.priceBreakdown}>
             <View style={styles.priceRow}>
               <Text style={styles.priceLabel}>Subtotal</Text>
-              <Text style={styles.priceValue}>${subtotal.toFixed(2)}</Text>
+              <Text style={styles.priceValue}>₱{subtotal.toFixed(2)}</Text>
             </View>
             <View style={styles.priceRow}>
               <Text style={styles.priceLabel}>Shipping</Text>
-              <Text style={styles.priceValue}>${shipping.toFixed(2)}</Text>
+              <Text style={styles.priceValue}>₱{shipping.toFixed(2)}</Text>
             </View>
             <View style={styles.priceRow}>
               <Text style={styles.priceLabel}>Tax</Text>
-              <Text style={styles.priceValue}>${tax.toFixed(2)}</Text>
+              <Text style={styles.priceValue}>₱{tax.toFixed(2)}</Text>
             </View>
             <View style={styles.totalRow}>
               <Text style={styles.totalLabel}>Total</Text>
-              <Text style={styles.totalValue}>${total.toFixed(2)}</Text>
+              <Text style={styles.totalValue}>₱{total.toFixed(2)}</Text>
             </View>
           </View>
         </View>
@@ -258,7 +258,7 @@ useEffect(() => {
           {isProcessing || loading ? (
             <ActivityIndicator size="small" color="#FFFFFF" />
           ) : (
-            <Text style={styles.placeOrderButtonText}>Place Order • ${total.toFixed(2)}</Text>
+            <Text style={styles.placeOrderButtonText}>Place Order • ₱{total.toFixed(2)}</Text>
           )}
         </TouchableOpacity>
       </View>

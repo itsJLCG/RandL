@@ -8,6 +8,7 @@ import {
     ActivityIndicator,
     ScrollView,
     Image,
+    Dimensions,
 } from 'react-native';
 import { Text, Menu, Provider, Portal } from 'react-native-paper';
 import { Table, Row, Rows } from 'react-native-table-component';
@@ -140,7 +141,7 @@ const ManageUsersScreen = ({ navigation }) => {
                     <Text style={styles.headerTitle}>Manage Users</Text>
                     <View style={styles.placeholder} />
                 </View>
-
+    
                 {isLoading ? (
                     <ActivityIndicator size="large" color="#38761d" style={styles.loader} />
                 ) : error ? (
@@ -149,7 +150,7 @@ const ManageUsersScreen = ({ navigation }) => {
                     </View>
                 ) : (
                     <View style={styles.tableContainer}>
-                        <ScrollView horizontal={true}>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
                             <View>
                                 <Table borderStyle={styles.tableBorder}>
                                     <Row
@@ -158,16 +159,19 @@ const ManageUsersScreen = ({ navigation }) => {
                                         style={styles.tableHeader}
                                         textStyle={styles.headerText}
                                     />
-                                    <ScrollView style={styles.dataWrapper}>
-                                        <Table borderStyle={styles.tableBorder}>
-                                            <Rows
-                                                data={tableData}
-                                                widthArr={widthArr}
-                                                style={styles.row}
-                                            />
-                                        </Table>
-                                    </ScrollView>
                                 </Table>
+                                <ScrollView 
+                                    style={styles.dataWrapper}
+                                    showsVerticalScrollIndicator={true}
+                                >
+                                    <Table borderStyle={styles.tableBorder}>
+                                        <Rows
+                                            data={tableData}
+                                            widthArr={widthArr}
+                                            style={styles.row}
+                                        />
+                                    </Table>
+                                </ScrollView>
                             </View>
                         </ScrollView>
                     </View>
@@ -296,7 +300,12 @@ const styles = StyleSheet.create({
     },
     placeholder: {
         width: 40, // Same width as back button for header alignment
-    }
+    },
+    dataWrapper: {
+        marginTop: -1,
+        maxHeight: Dimensions.get('window').height - 200, // Add height constraint
+    },
+
 });
 
 export default ManageUsersScreen;

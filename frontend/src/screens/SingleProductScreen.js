@@ -111,7 +111,7 @@ const SingleProductScreen = ({ route, navigation }) => {
             {product.category ? product.category.name : 'Uncategorized'}
           </Text>
           <Text style={styles.title}>{product.name}</Text>
-          <Text style={styles.price}>${parseFloat(product.price).toFixed(2)}</Text>
+          <Text style={styles.price}>₱{parseFloat(product.price).toFixed(2)}</Text>
           
           <View style={styles.quantityContainer}>
             <Text style={styles.quantityLabel}>Quantity:</Text>

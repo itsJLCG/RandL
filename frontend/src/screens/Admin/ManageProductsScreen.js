@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback} from 'react';
 import {
   View,
   StyleSheet,
@@ -15,6 +15,7 @@ import { Table, Row, Rows } from 'react-native-table-component';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts, deleteProduct } from '../../actions/productActions';
+import { useFocusEffect } from '@react-navigation/native';
 
 const ManageProductsScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -22,9 +23,11 @@ const ManageProductsScreen = ({ navigation }) => {
   const [tableHead] = useState(['Name', 'Price', 'Category', 'Image', 'Actions']);
   const [widthArr] = useState([140, 80, 120, 80, 100]);
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(fetchProducts());
+    }, [dispatch])
+  );
 
   const handleAddProduct = () => {
     navigation.navigate('AddProduct');
@@ -94,56 +97,56 @@ const ManageProductsScreen = ({ navigation }) => {
   ]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back" size={24} color="#38761d" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Manage Products</Text>
-        <TouchableOpacity
-          style={styles.addButton}
-          onPress={handleAddProduct}
-        >
-          <Ionicons name="add" size={24} color="#38761d" />
-        </TouchableOpacity>
-      </View>
+  <SafeAreaView style={styles.container}>
+    <View style={styles.header}>
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}
+      >
+        <Ionicons name="arrow-back" size={24} color="#38761d" />
+      </TouchableOpacity>
+      <Text style={styles.headerTitle}>Manage Products</Text>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={handleAddProduct}
+      >
+        <Ionicons name="add" size={24} color="#38761d" />
+      </TouchableOpacity>
+    </View>
 
-      {isLoading ? (
-        <ActivityIndicator size="large" color="#38761d" style={styles.loader} />
-      ) : error ? (
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>{error}</Text>
-        </View>
-      ) : (
-        <View style={styles.tableContainer}>
-          <ScrollView horizontal={true}>
-            <View>
+    {isLoading ? (
+      <ActivityIndicator size="large" color="#38761d" style={styles.loader} />
+    ) : error ? (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>{error}</Text>
+      </View>
+    ) : (
+      <View style={styles.tableContainer}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
+          <View>
+            <Table borderStyle={styles.tableBorder}>
+              <Row 
+                data={tableHead} 
+                widthArr={widthArr}
+                style={styles.tableHeader}
+                textStyle={styles.headerText}
+              />
+            </Table>
+            <ScrollView style={styles.dataWrapper} showsVerticalScrollIndicator={true}>
               <Table borderStyle={styles.tableBorder}>
-                <Row 
-                  data={tableHead} 
+                <Rows 
+                  data={tableData} 
                   widthArr={widthArr}
-                  style={styles.tableHeader}
-                  textStyle={styles.headerText}
+                  style={styles.row}
                 />
-                <ScrollView style={styles.dataWrapper}>
-                  <Table borderStyle={styles.tableBorder}>
-                    <Rows 
-                      data={tableData} 
-                      widthArr={widthArr}
-                      style={styles.row}
-                    />
-                  </Table>
-                </ScrollView>
               </Table>
-            </View>
-          </ScrollView>
-        </View>
-      )}
-    </SafeAreaView>
-  );
+            </ScrollView>
+          </View>
+        </ScrollView>
+      </View>
+    )}
+  </SafeAreaView>
+);
 };
 
 const styles = StyleSheet.create({
